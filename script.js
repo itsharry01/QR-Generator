@@ -1,25 +1,31 @@
-// Function to generate the QR code when form is submitted
-document.getElementById("qrForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+document.addEventListener('DOMContentLoaded', function () {
+    // Get form and input elements
+    const qrForm = document.getElementById('qrForm');
+    const inputField = document.getElementById('data');
+    const qrCodeContainer = document.getElementById('qrcode');
 
-    const qrCodeContainer = document.getElementById("qrcode");
-    const data = document.getElementById("data").value;
+    // Listen for form submission
+    qrForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent default form submission
 
-    // Clear any previous QR code
-    qrCodeContainer.innerHTML = "";
+        const data = inputField.value.trim();
 
-    // Check if the input is not empty
-    if (data.trim() === "") {
-        alert("Please enter text or a URL to generate a QR code!");
-        return;
-    }
+        // Clear any previous QR code
+        qrCodeContainer.innerHTML = "";
 
-    // Generate QR Code using qrcode.js
-    QRCode.toCanvas(qrCodeContainer, data, function(error) {
-        if (error) {
-            console.error("Error generating QR Code:", error);
-        } else {
-            console.log("QR Code generated successfully!");
+        // Check if input is empty
+        if (data === "") {
+            alert("Please enter text or URL to generate a QR code!");
+            return;
         }
+
+        // Generate QR Code using the QRCode library
+        QRCode.toCanvas(qrCodeContainer, data, function (error) {
+            if (error) {
+                console.error("Error generating QR Code:", error);
+            } else {
+                console.log("QR Code generated successfully!");
+            }
+        });
     });
 });
