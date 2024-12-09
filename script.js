@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     qrForm.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent default form submission
 
-        const data = inputField.value.trim(); // Remove any leading/trailing whitespace
+        let data = inputField.value.trim(); // Remove any leading/trailing whitespace
 
         // Clear any previous QR code
         qrCodeContainer.innerHTML = "";
@@ -19,20 +19,28 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Validate that the input data is a valid string (optional: could extend further)
+        // Ensure the data is a valid string (encode it for QR compatibility)
         if (typeof data !== 'string' || data.length === 0) {
             alert("Invalid data entered. Please provide a valid text or URL.");
             return;
         }
 
+        // Optionally, encode the data to ensure it works well with the QR code generation
+        data = encodeURIComponent(data);  // Encode URL or special characters for compatibility
+
         // Generate QR Code using the QRCode library
-        QRCode.toCanvas(qrCodeContainer, data, function (error) {
-            if (error) {
-                console.error("Error generating QR Code:", error);
-                alert("There was an error generating the QR Code. Please check your input.");
-            } else {
-                console.log("QR Code generated successfully!");
-            }
-        });
+        try {
+            QRCode.toCanvas(qrCodeContainer, data, function (error) {
+                if (error) {
+                    console.error("Error generating QR Code:", error);
+                    alert("There was an error generating the QR Code. Please check your input.");
+                } else {
+                    console.log("QR Code generated successfully!");
+                }
+            });
+        } catch (error) {
+            console.error("An error occurred while generating the QR code:", error);
+            alert("An unexpected error occurred. Please try again.");
+        }
     });
 });
