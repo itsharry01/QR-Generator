@@ -4,51 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            margin: 50px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-        }
-        h1 {
-            color: #333;
-        }
-        form {
-            margin-top: 20px;
-        }
-        input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #qrcode {
-            margin-top: 20px;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script> <!-- External QR Code Library -->
 </head>
 <body>
     <div class="container">
@@ -60,32 +17,6 @@
         <div id="qrcode"></div>
     </div>
 
-    <script>
-        // Function to generate the QR code when form is submitted
-        document.getElementById("qrForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-
-            const qrCodeContainer = document.getElementById("qrcode");
-            const data = document.getElementById("data").value;
-
-            // Clear any previous QR code
-            qrCodeContainer.innerHTML = "";
-
-            // Check if the input is not empty
-            if (data.trim() === "") {
-                alert("Please enter text or a URL to generate a QR code!");
-                return;
-            }
-
-            // Generate QR Code using qrcode.js
-            QRCode.toCanvas(qrCodeContainer, data, function(error) {
-                if (error) {
-                    console.error("Error generating QR Code:", error);
-                } else {
-                    console.log("QR Code generated successfully!");
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script> <!-- Link to external JavaScript -->
 </body>
 </html>
