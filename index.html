@@ -53,7 +53,7 @@
 <body>
     <div class="container">
         <h1>QR Code Generator</h1>
-        <form id="qrForm" onsubmit="generateQRCode(event)">
+        <form id="qrForm">
             <input type="text" id="data" placeholder="Enter text or URL" required>
             <button type="submit">Generate QR Code</button>
         </form>
@@ -61,32 +61,31 @@
     </div>
 
     <script>
-        function generateQRCode(event) {
-            event.preventDefault(); // Prevent form submission
+        // Function to generate the QR code when form is submitted
+        document.getElementById("qrForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
             const qrCodeContainer = document.getElementById("qrcode");
             const data = document.getElementById("data").value;
 
-            // Clear previous QR Code
+            // Clear any previous QR code
             qrCodeContainer.innerHTML = "";
 
+            // Check if the input is not empty
             if (data.trim() === "") {
                 alert("Please enter text or a URL to generate a QR code!");
                 return;
             }
 
-            // Ensure QRCode is available and generate the QR code
-            if (typeof QRCode !== 'undefined') {
-                QRCode.toCanvas(qrCodeContainer, data, function (error) {
-                    if (error) {
-                        console.error("Error generating QR Code:", error);
-                    } else {
-                        console.log("QR Code generated successfully!");
-                    }
-                });
-            } else {
-                console.error("QRCode library is not loaded properly.");
-            }
-        }
+            // Generate QR Code using qrcode.js
+            QRCode.toCanvas(qrCodeContainer, data, function(error) {
+                if (error) {
+                    console.error("Error generating QR Code:", error);
+                } else {
+                    console.log("QR Code generated successfully!");
+                }
+            });
+        });
     </script>
 </body>
 </html>
