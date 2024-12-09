@@ -47,7 +47,7 @@
             margin-top: 20px;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    
 </head>
 <body>
     <div class="container">
@@ -59,7 +59,7 @@
         <div id="qrcode"></div>
     </div>
 
-    <script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js">
         function generateQRCode(event) {
             event.preventDefault();
             const qrCodeContainer = document.getElementById("qrcode");
